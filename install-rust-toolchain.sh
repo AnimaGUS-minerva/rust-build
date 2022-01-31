@@ -168,12 +168,14 @@ RUST_DIST="rust-${TOOLCHAIN_VERSION}-${ARCH}"
 RUST_SRC_DIST="rust-src-${TOOLCHAIN_VERSION}"
 LLVM_ARTIFACT_VERSION=`echo ${LLVM_VERSION} | sed -e 's/.*esp-//g' -e 's/-.*//g' -e 's/\./_/g'`
 LLVM_FILE="xtensa-esp32-elf-llvm${LLVM_ARTIFACT_VERSION}-${LLVM_VERSION}-${LLVM_ARCH}.tar.xz"
-LLVM_DIST_URL="https://github.com/espressif/llvm-project/releases/download/${LLVM_VERSION}/${LLVM_FILE}"
+# LLVM_DIST_URL="https://github.com/espressif/llvm-project/releases/download/${LLVM_VERSION}/${LLVM_FILE}"
+LLVM_DIST_URL="https://github.com/AnimaGUS-minerva/rust-build/releases/download/v1.57.0.2/xtensa-esp32-elf-llvm13_0_0-esp-13.0.0-20211203-linux-amd64.tar.xz"  # @@ minerva
 if [ -z "${IDF_TOOLS_PATH}" ]; then
     IDF_TOOLS_PATH="${HOME}/.espressif"
 fi
 IDF_TOOL_XTENSA_ELF_CLANG="${IDF_TOOLS_PATH}/tools/xtensa-esp32-elf-clang/${LLVM_VERSION}-${ARCH}"
-RUST_DIST_URL="https://github.com/esp-rs/rust-build/releases/download/v${TOOLCHAIN_VERSION}/${RUST_DIST}.tar.xz"
+# RUST_DIST_URL="https://github.com/esp-rs/rust-build/releases/download/v${TOOLCHAIN_VERSION}/${RUST_DIST}.tar.xz"
+RUST_DIST_URL="https://github.com/AnimaGUS-minerva/rust-build/releases/download/v1.57.0.2/rust-1.57.0.2-x86_64-unknown-linux-gnu.tar.xz"  # @@ minerva
 
 if [ "${INSTALLATION_MODE}" == "uninstall" ] || [ "${INSTALLATION_MODE}" == "reinstall" ] ; then
     echo "Removing:"
@@ -215,7 +217,8 @@ if [ ! -d ${TOOLCHAIN_DESTINATION_DIR} ]; then
     ./${RUST_DIST}/install.sh --destdir=${TOOLCHAIN_DESTINATION_DIR} --prefix="" --without=rust-docs
 
     if [ ! -f ${RUST_SRC_DIST}.tar.xz ]; then
-        curl -LO "https://github.com/esp-rs/rust-build/releases/download/v${TOOLCHAIN_VERSION}/${RUST_SRC_DIST}.tar.xz"
+        # curl -LO "https://github.com/esp-rs/rust-build/releases/download/v${TOOLCHAIN_VERSION}/${RUST_SRC_DIST}.tar.xz"
+        curl -LO "https://github.com/AnimaGUS-minerva/rust-build/releases/download/v1.57.0.2/rust-src-1.57.0.2.tar.xz"  # @@ minerva
         mkdir -p ${RUST_SRC_DIST}
         tar xf ${RUST_SRC_DIST}.tar.xz --strip-components=1 -C ${RUST_SRC_DIST}
     fi
@@ -238,6 +241,8 @@ if [ ! -d ${IDF_TOOL_XTENSA_ELF_CLANG} ]; then
 else
     echo "already installed"
 fi
+
+exit 0  # @@ minerva
 
 if [[ ! -z "${ESPFLASH_URL}" ]]; then
     if [[ ! -e "${ESPFLASH_BIN}" ]]; then
