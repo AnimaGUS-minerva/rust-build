@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # Default values
-TOOLCHAIN_VERSION="1.57.0.2"
+# TOOLCHAIN_VERSION="1.57.0.2"
+TOOLCHAIN_VERSION="1.74.0.1" # @@ ok
+# TOOLCHAIN_VERSION="1.75.0.0" # @@ or newer, needs "upgrade to Ubuntu 22.04 from Ubutu 20.04"
 if [ -z "${RUSTUP_HOME}" ]; then
     RUSTUP_HOME="${HOME}/.rustup"
 fi
@@ -175,7 +177,6 @@ if [ -z "${IDF_TOOLS_PATH}" ]; then
 fi
 IDF_TOOL_XTENSA_ELF_CLANG="${IDF_TOOLS_PATH}/tools/xtensa-esp32-elf-clang/${LLVM_VERSION}-${ARCH}"
 # RUST_DIST_URL="https://github.com/esp-rs/rust-build/releases/download/v${TOOLCHAIN_VERSION}/${RUST_DIST}.tar.xz"
-RUST_DIST_URL="https://github.com/AnimaGUS-minerva/rust-build/releases/download/v1.57.0.2/rust-1.57.0.2-x86_64-unknown-linux-gnu.tar.xz"  # @@ minerva
 
 if [ "${INSTALLATION_MODE}" == "uninstall" ] || [ "${INSTALLATION_MODE}" == "reinstall" ] ; then
     echo "Removing:"
@@ -209,8 +210,9 @@ fi
 if [ ! -d ${TOOLCHAIN_DESTINATION_DIR} ]; then
     mkdir -p ${TOOLCHAIN_DESTINATION_DIR}
     if [ ! -f ${RUST_DIST}.tar.xz ]; then
-        echo "** downloading: ${RUST_DIST_URL}"
-        curl -LO "${RUST_DIST_URL}"
+        # echo "** downloading: ${RUST_DIST_URL}"
+        # curl -LO "${RUST_DIST_URL}"
+        curl -LO "https://github.com/AnimaGUS-minerva/rust-build/releases/download/v1.74.0.1/rust-1.74.0.1-x86_64-unknown-linux-gnu.tar.xz"
         mkdir -p ${RUST_DIST}
         tar xf ${RUST_DIST}.tar.xz --strip-components=1 -C ${RUST_DIST}
     fi
@@ -218,7 +220,7 @@ if [ ! -d ${TOOLCHAIN_DESTINATION_DIR} ]; then
 
     if [ ! -f ${RUST_SRC_DIST}.tar.xz ]; then
         # curl -LO "https://github.com/esp-rs/rust-build/releases/download/v${TOOLCHAIN_VERSION}/${RUST_SRC_DIST}.tar.xz"
-        curl -LO "https://github.com/AnimaGUS-minerva/rust-build/releases/download/v1.57.0.2/rust-src-1.57.0.2.tar.xz"  # @@ minerva
+        curl -LO "https://github.com/AnimaGUS-minerva/rust-build/releases/download/v1.74.0.1/rust-src-1.74.0.1.tar.xz"  # @@ minerva
         mkdir -p ${RUST_SRC_DIST}
         tar xf ${RUST_SRC_DIST}.tar.xz --strip-components=1 -C ${RUST_SRC_DIST}
     fi
