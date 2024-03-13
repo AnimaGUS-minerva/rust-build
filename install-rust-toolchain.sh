@@ -12,6 +12,7 @@ TOOLCHAIN_DESTINATION_DIR="${RUSTUP_HOME}/toolchains/esp"
 RUSTC_MINIMAL_MINOR_VERSION="55"
 INSTALLATION_MODE="install" # reinstall, uninstall
 LLVM_VERSION="esp-13.0.0-20211203"
+# @@ TODO upgrade to "esp-16.0.0-20230516"  https://github.com/esp-rs/rust-build/releases/download/v1.74.0.1/install-rust-toolchain.sh
 CLEAR_DOWNLOAD_CACHE="NO"
 EXTRA_CRATES="ldproxy"
 
